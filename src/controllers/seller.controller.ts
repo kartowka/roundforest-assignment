@@ -34,18 +34,41 @@ export const getProductBySellerName = async (req: Request, res: Response) => {
 }
 export const getAllProducts = async (req: Request, res: Response) => {
 	try {
-		// const data = await prisma.seller_product.groupBy({
-		// 	by: ['seller_name', 'locale'],
-		// 	_count: {
-		// 		_all: true,
-		// 		availability: true,
-		// 		price: true,
-		// 	},
-		// 	_sum: {
-		// 		price: true,
-		// 	},
-		// })
-		// return
+		const result = await prisma.seller_product.groupBy({
+			by: ['seller_name', 'locale'],
+			_count: {
+				_all: true,
+				availability: true,
+			},
+			_sum: {
+				price: true,
+			},
+			_avg: {
+				price: true,
+			},
+		})
+		const formattedResult = result.map((group) => {
+			const {
+				seller_name,
+				locale,
+				_count: { _all: totalProducts, availability: availableProducts },
+				_sum: { price: totalPrice },
+				_avg: { price: avgPrice },
+			} = group
+
+			const unavailableProducts = totalProducts - availableProducts
+			const averagePrice = avgPrice
+
+			return {
+				seller_name,
+				locale,
+				available_products: availableProducts,
+				unavailable_products: unavailableProducts,
+				average_price: averagePrice,
+			}
+		})
+
+		res.json(formattedResult)
 	} catch (e) {
 		return res.status(StatusCodes.BAD_REQUEST).json({ StatusCode: StatusCodes.BAD_REQUEST, errors: e })
 	} finally {
