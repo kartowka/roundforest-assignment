@@ -1,0 +1,10 @@
+node_modules
+.env*
+.eslintrc
+logs*
+dist*
+.vscode
+.DS_STORE
+tsconfig.json.bckp 
+build*
+prisma/migrations/migration_lock*
