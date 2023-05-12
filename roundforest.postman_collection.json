@@ -1,0 +1,187 @@
+{
+	"info": {
+		"_postman_id": "e94ea5af-9abf-40c4-9f3e-e85502783350",
+		"name": "roundforest",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "21908672"
+	},
+	"item": [
+		{
+			"name": "Create",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"asin\": \"078669324X\",\n  \"locale\": \"US\",\n  \"seller_name\": \"thrasio\",\n  \"availability\": \"false\",\n  \"price\": \"16.87\",\n  \"proudct_name\": \"You Can Teach Yourself Dobro\",\n  \"product_link\": \"https://www.amazon.com/dp/078669324X?tag=hallocostu201-20&linkCode=ogi&th=1&psc=1\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/api/v1/product",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v1",
+						"product"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"asin\": \"078669324X\",\n  \"locale\": \"CA\",\n  \"seller_name\": \"thrasio\",\n  \"availability\": \"false\",\n  \"price\": \"16.87\",\n  \"proudct_name\": \"You Can Teach Yourself Dobro\",\n  \"product_link\": \"https://www.amazon.com/dp/078669324X?tag=hallocostu201-20&linkCode=ogi&th=1&psc=1\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/api/v1/product",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v1",
+						"product"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Read",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:3000/api/v1/product?locale=ca&asin=078669324X",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v1",
+						"product"
+					],
+					"query": [
+						{
+							"key": "locale",
+							"value": "ca"
+						},
+						{
+							"key": "asin",
+							"value": "078669324X"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Read seller  by name",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:3000/api/v1/seller/thrasio/products",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v1",
+						"seller",
+						"thrasio",
+						"products"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "analysis",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:3000/api/v1/product?locale=ca&asin=078669324X",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v1",
+						"product"
+					],
+					"query": [
+						{
+							"key": "locale",
+							"value": "ca"
+						},
+						{
+							"key": "asin",
+							"value": "078669324X"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"products\":[\n        {\n            \"asin\":\"111\",\n            \"locale\":\"CA\"\n        }\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/api/v1/product",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v1",
+						"product"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "New Request",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		}
+	]
+}
