@@ -2,17 +2,7 @@ import { Request, Response } from 'express'
 import { PrismaClient } from '@prisma/client'
 import { StatusCodes } from 'http-status-codes'
 const prisma = new PrismaClient()
-interface Count {
-	true: number
-	// add other properties as needed
-}
 
-interface Item {
-	seller_name: string
-	locale: string
-	_count: Count | number
-	// add other properties as needed
-}
 export const getProductBySellerName = async (req: Request, res: Response) => {
 	try {
 		const seller_name = req.params.seller_name
@@ -39,9 +29,6 @@ export const getAllProducts = async (req: Request, res: Response) => {
 			_count: {
 				availability: true,
 			},
-			_sum: {
-				price: true,
-			},
 			_avg: {
 				price: true,
 			},
@@ -56,7 +43,6 @@ export const getAllProducts = async (req: Request, res: Response) => {
 				seller_name,
 				locale,
 				_count: { availability: availableProducts },
-				_sum: { price: totalPrice },
 				_avg: { price: avgPrice },
 			} = group
 			const unavailableRow = unavailable.find((row) => row.seller_name === seller_name && row.locale === locale)
