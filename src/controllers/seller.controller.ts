@@ -37,7 +37,6 @@ export const getAllProducts = async (req: Request, res: Response) => {
 		const result = await prisma.seller_product.groupBy({
 			by: ['seller_name', 'locale'],
 			_count: {
-				_all: true,
 				availability: true,
 			},
 			_sum: {
@@ -47,23 +46,28 @@ export const getAllProducts = async (req: Request, res: Response) => {
 				price: true,
 			},
 		})
+		const unavailable = await prisma.seller_product.groupBy({
+			by: ['seller_name', 'locale'],
+			_count: true,
+			where: { availability: false },
+		})
 		const formattedResult = result.map((group) => {
 			const {
 				seller_name,
 				locale,
-				_count: { _all: totalProducts, availability: availableProducts },
+				_count: { availability: availableProducts },
 				_sum: { price: totalPrice },
 				_avg: { price: avgPrice },
 			} = group
-
-			const unavailableProducts = totalProducts - availableProducts
+			const unavailableRow = unavailable.find((row) => row.seller_name === seller_name && row.locale === locale)
+			const unavailable_count = unavailableRow ? unavailableRow._count : 0
 			const averagePrice = avgPrice
 
 			return {
 				seller_name,
 				locale,
 				available_products: availableProducts,
-				unavailable_products: unavailableProducts,
+				unavailable_products: unavailable_count,
 				average_price: averagePrice,
 			}
 		})
